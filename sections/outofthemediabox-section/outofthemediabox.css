@@ -1,0 +1,47 @@
+*/
+form.form-outofthemediabox-section-local { height: 995px !important; }
+form[data-sid=outofthemediabox-section] .opt-pl_section_styling { display:none; }
+
+/*General Mosaic Styles*/
+.mosaic-block {
+	float:left;
+	position:relative;
+	overflow:hidden;
+	width:100%;
+	cursor:pointer;
+	min-height: 250px;
+	border:1px solid #fff;
+}
+
+	.mosaic-backdrop  {
+		height:100%;
+		width:100%;
+	}
+	
+	.mosaic-overlay {
+		z-index:5;
+		position:absolute;
+		width:100%;
+		background:#FFF;
+	}
+		
+	.bar-bottom .mosaic-overlay {
+		bottom:0;
+	}
+
+	.full_hw {
+	  width: 100%; height: 100%;
+	}
+	
+	.mosaic-overlay  h4 {
+	   padding: 5px 10px;
+	}
+	
+	.mosaic-overlay .details .toggle {
+	   padding: 5px 10px;
+	}
+	
+	.mosaic-overlay .details .toggle  p{
+	   padding: 0;
+	   margin: 5px 0;
+	}
