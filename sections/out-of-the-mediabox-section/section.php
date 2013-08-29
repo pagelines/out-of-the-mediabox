@@ -4,23 +4,25 @@
 	Author: Kyle & Irving
 	Author URI: http://www.kyle-irving.co.uk
 	Version: 2.0.0
-	Description: Adds a hovere effect to Media Boxes
-	Class Name: PageLinesOutOfTheMediaBox
+	Description: Gives ability to add a text hover overlay to an image. Basaed on Pagelines MediaBox Section.
+	Class Name: OutOfTheMediaBox
 	Filter: component	
 	Loading: active	
 */
 
-class PageLinesOutOfTheMediaBox extends PageLinesSection {	
+class OutOfTheMediaBox extends PageLinesSection {	
    function section_head() {
         $plugins_url = plugins_url();
-        $section = "/outofthemediabox-section/sections/outofthemediabox-section/";
-		$link = $plugins_url.$section;		//wp_enqueue_style( 'wp-color-picker' );		//wp_enqueue_script( 'my-script-handle', plugins_url('my-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+		$path_dir = pathinfo(dirname(__file__));
+		$path_main_dir = explode("/plugins/",$path_dir["dirname"]);
+        $section = "/".$path_main_dir[1]."/".$path_dir['basename']."/";
+		$link = $plugins_url.$section;
 	   ?>
 		<link rel='stylesheet' href='<?php echo $link; ?>outofthemediabox.css' type='text/css' media='all' />
 		<script type='text/javascript' src='<?php echo $link; ?>outofthemediabox.js'></script>
 	   <?php
    }
-    
+       
    function section_opts(){
 		$opts = array(	
 			array(
@@ -36,18 +38,19 @@ class PageLinesOutOfTheMediaBox extends PageLinesSection {
 					array(
 						'type' 		=> 'textarea',
 						'key'		=> 'outofthemediabox_html',
-						'label' 	=> __( 'Text and Embed HTML', 'pagelines' ),
-						'help'		=> __( 'Enter rich media "embed" HTML in this field to add videos, etc.. instead of an image.', 'pagelines' )
+						'label' 	=> __( 'Text, Shortcodes and HTML', 'pagelines' ),
+						'help'		=> __( 'Enter the text that you want to appear in the hover overlay. You can also use PL shortcodes. For the hover effect to work you must add a 							background image.', 'pagelines' )
 					),
 					array(
 						'type' 	=> 'image_upload',
 						'key'	=> 'outofthemediabox_image',
-						'label' => __( 'MediaBox Image', 'pagelines' ),
+						'label' => __( 'Background Image', 'pagelines' ),
 					),
 					array(
 						'type' 	=> 'text',
 						'key'	=> 'outofthemediabox_url',
 						'label' => __('OutOfTheMediaBox Link (Optional)','pagelines'),
+						'help'  => __ ( 'The link should start with HTTP://' , 'pagelines' )
 					),
 					array( 
 						'type' 	=> 'select',
