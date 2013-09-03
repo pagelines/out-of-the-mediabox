@@ -11,12 +11,17 @@
 */
 
 class OutOfTheMediaBox extends PageLinesSection {	
-   function section_head() {
-        $plugins_url = plugins_url();
+   function get_plugin_url() {
+		$plugins_url = plugins_url();
 		$path_dir = pathinfo(dirname(__file__));
 		$path_main_dir = explode("/plugins/",$path_dir["dirname"]);
         $section = "/".$path_main_dir[1]."/".$path_dir['basename']."/";
-		$link = $plugins_url.$section;
+		$url = $plugins_url.$section;
+		return $url;
+   }
+   
+   function section_head() {
+		$link = $this->get_plugin_url();
 	   ?>
 		<link rel='stylesheet' href='<?php echo $link; ?>outofthemediabox.css' type='text/css' media='all' />
 		<script type='text/javascript' src='<?php echo $link; ?>outofthemediabox.js'></script>
@@ -52,6 +57,7 @@ class OutOfTheMediaBox extends PageLinesSection {
 						'label' => __('OutOfTheMediaBox Link (Optional)','pagelines'),
 						'help'  => __ ( 'The link should start with HTTP://' , 'pagelines' )
 					),
+					
 					array( 
 						'type' 	=> 'select',
 						'key'	=> 'outofthemediabox_url_target',
@@ -80,6 +86,7 @@ class OutOfTheMediaBox extends PageLinesSection {
 						'type' 	=> 'select',
 						'key'	=> 'outofthemediabox_overlay_position',
 						'label' => __( 'Hover Content Position', 'pagelines' ),
+						'default' => 'bottom',
 						'opts'	=> array(
 							'top'  => array('name' => __( 'Top', 'pagelines' )),
 							'bottom'  => array('name' => __( 'Bottom', 'pagelines' )),
@@ -118,21 +125,27 @@ class OutOfTheMediaBox extends PageLinesSection {
 						'type' 	=> 'select',
 						'key'	=> 'outofthemediabox_overlay_titlealign',
 						'label' => __( 'Hover Title Align', 'pagelines' ),
+						'default' => 'left',
 						'opts'	=> array(
 							'left' 	=> array('name' => __( 'Left', 'pagelines')),
 							'center' => array('name' => __( 'Center', 'pagelines')),
 							'right' => array('name' => __( 'Right', 'pagelines')),
+							
 						)
 					),
 					array(
 						'type' 			=> 'color',
 						'key'			=> 'outofthemediabox_bgcolor',
+						'default'		=> '#333333',
 						'label' 		=> __( 'Hover Background Color', 'pagelines' ),
+						
 					),
 					array(
 						'type' 			=> 'color',
 						'key'			=> 'outofthemediabox_textcolor',
+						'default'		=> '#ffffff',
 						'label' 		=> __('Hover Font Color', 'pagelines'),
+						
 					),
 				)
 			),
@@ -186,12 +199,12 @@ class OutOfTheMediaBox extends PageLinesSection {
 		$media_html = $this->opt('outofthemediabox_html');
 		$html = do_shortcode( wpautop( $media_html ) );
 		
-		// image Field
+		// Image Field
 		$image = $this->opt('outofthemediabox_image');
 		if($image) {
 			$imgattr = 'src="'.$image.'" alt="'.$formated_title.'"';
 		} else {
-			$imgattr = 'src="'.$this->base_url.'/default.png" alt="'.$formated_title.'"';
+			$imgattr = 'src="'.$this->get_plugin_url().'default.png" alt="'.$formated_title.'"';
 		} 
 		$img = '<img class="full_hw" data-sync="outofthemediabox_image" ';
 		$img .= $imgattr.' '.$box_height.' />';
@@ -206,7 +219,7 @@ class OutOfTheMediaBox extends PageLinesSection {
 			$main_class = "bar-bottom";
 			break;
 		}
-		
+				
 		// Animation 
 		$animation = ($this->opt('outofthemediabox_animation')) ? $this->opt('outofthemediabox_animation') : 'pla-fade';
 		
@@ -236,14 +249,14 @@ class OutOfTheMediaBox extends PageLinesSection {
 			$misaic_style["opacity"] = "opacity:".$overlay_opacity;
 		}
 		$bgcolor = $this->opt('outofthemediabox_bgcolor');
-		$misaic_style["bgcolor"] = "background-color:#fff";
+		$misaic_style["bgcolor"] = "background-color:#333333";
 		if(!empty($bgcolor)) {
 			$opacity = str_replace("opacity:","",$misaic_style["opacity"]);
 		    $get_rgba = $this->hex2rgb($bgcolor,$opacity);
 			$misaic_style["bgcolor"] = "background-color:".$get_rgba;
 		}
 		$textcolor = $this->opt('outofthemediabox_textcolor');
-		$misaic_style["textcolor"] = "color:#000;";
+		$misaic_style["textcolor"] = "color:#ffffff;";
 		if(!empty($textcolor)) {
 			$misaic_style["textcolor"] = "color:#".$textcolor.";";
 		}
