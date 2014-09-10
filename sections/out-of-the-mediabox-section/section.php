@@ -3,7 +3,7 @@
 	Section: Out Of The MediaBox
 	Author: Kyle & Irving
 	Author URI: http://www.kyle-irving.co.uk
-	Version: 2.0.0
+	Version: 2.0.1
 	Description: Gives ability to add a text hover overlay to an image. Based on PageLines Media Box Component.
 	Class Name: OutOfTheMediaBox
 	Filter: component, misc, gallery
@@ -149,12 +149,12 @@ class OutOfTheMediaBox extends PageLinesSection {
 					),
 				)
 			),
-			array(
-				'type' 			=> 'select_animation',
-				'key'			=> 'outofthemediabox_animation',
-				'label' 		=> __( 'Viewport Animation', 'pagelines' ),
-				'help' 			=> __( 'Optionally animate the appearance of this section on view.', 'pagelines' ),
-			),
+			// array(
+			// 	'type' 			=> 'select_animation',
+			// 	'key'			=> 'outofthemediabox_animation',
+			// 	'label' 		=> __( 'Viewport Animation', 'pagelines' ),
+			// 	'help' 			=> __( 'Optionally animate the appearance of this section on view.', 'pagelines' ),
+			// ),
 		);
 		return $opts;
 	}
@@ -221,9 +221,9 @@ class OutOfTheMediaBox extends PageLinesSection {
 		}
 				
 		// Animation 
-		$animation = ($this->opt('outofthemediabox_animation')) ? $this->opt('outofthemediabox_animation') : 'pla-fade';
+		// $animation = ($this->opt('outofthemediabox_animation')) ? $this->opt('outofthemediabox_animation') : 'pla-fade';
 		
-		$main_class .= " ".$animation." pl-animation fix";
+		$main_class .= " pl-animation fix";
 		
 		// Optional Link
 		$box_url = ($this->opt('outofthemediabox_url'))? $this->opt('outofthemediabox_url') : '';
@@ -274,7 +274,7 @@ class OutOfTheMediaBox extends PageLinesSection {
 			$alter_html .= $title;
 		 }
 						
-		echo '<div class="obox mosaic-block '.$main_class.' '.$animation.'" id="obox_'.$formated_title.'">
+		echo '<div class="obox mosaic-block '.$main_class.'" id="obox_'.$formated_title.'">
 			<div class="mosaic-overlay" style="'.$full_misaic_style.'">
 				<div class="details">
 					'.$alter_html.'
